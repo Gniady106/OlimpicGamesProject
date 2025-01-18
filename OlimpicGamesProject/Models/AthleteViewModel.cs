@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace OlimpicGamesProject.Models;
 
 public class AthleteViewModel
