@@ -1,0 +1,121 @@
+@model List<AthleteViewModel>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+}
+
+<h2>List of athletes</h2>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Full Name</th>
+        <th>Gender</th>
+        <th>Height</th>
+        <th>Weight</th>
+        <th>Gold Medals</th>
+        <th>Silver Medals</th>
+        <th>Bronze Medals</th>
+        <th>Total Events</th>
+    </tr>
+    </thead>
+    @foreach (var athlete in Model) {
+
+        <tr>
+                
+            @* </td> *@
+            @* <td> *@
+            @*     @Html.DisplayFor(modelitem => item.Weight) *@
+            @* *@
+            @* </td> *@
+            @* <td> *@
+            @*     @Html.DisplayFor(modelitem => item.Height) *@
+            @* </td> *@
+            @* <td> *@
+            @*     @Html.DisplayFor(modelitem => item.Gender) *@
+            @* </td> *@
+            @* *@
+            @* <td> *@
+            @*     @Html.DisplayFor(modelitem => item.GoldMedals) *@
+            @* </td> *@
+            @* <td> *@
+            @*     @Html.DisplayFor(modelitem => item.SilverMedals) *@
+            @* </td> *@
+            @* <td> *@
+            @*     @Html.DisplayFor(modelitem => item.BronzeMedals) *@
+            @* </td> *@
+            @* <td> *@
+            @*     @Html.DisplayFor(modelitem => item.Competitions) *@
+            @* </td> *@
+            <td>@athlete.FullName</td>
+            <td>@athlete.Gender</td>
+            <td>@athlete.Height</td>
+            <td>@athlete.Weight</td>
+            <td>@athlete.GoldMedals</td>
+            <td>@athlete.SilverMedals</td>
+            <td>@athlete.BronzeMedals</td>
+            <td><a class="accordion-button" asp-action="Competitors">@athlete.Competitions</a></td>
+
+        </tr>
+    }
+    
+</table>
+
+<div class="pagination-container">
+    <ul class="pagination">
+        @if (currentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-page="@(currentPage - 1)">Previous</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            if (i == currentPage)
+            {
+                <li class="page-item active"><span class="page-link">@i</span></li>
+            }
+            else if (i <= 3 || i > totalPages - 3 || (i >= currentPage - 1 && i <= currentPage + 1))
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                </li>
+            }
+
+            else if (i == 4 && currentPage > 5)
+            {
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+            }
+            else if (i == totalPages - 3 && currentPage < totalPages - 4)
+            {
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+            }
+        }
+
+        @if (currentPage < totalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-page="@(currentPage + 1)">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-page="@totalPages">Last</a>
+            </li>
+        }
+    </ul>
+    <form asp-action="Index" method="get" class="d-flex align-items-center">
+        <label for="page" class="me-2">Wpisz numer strony:</label>
+        <div class="input-group" style="max-width: 200px;">
+            <input id="page" type="number" class="form-control" name="page" min="1" max="@totalPages" value="@currentPage" />
+            <button type="submit" class="btn btn-primary">Znajdź</button>
+        </div>
+    </form>
+</div>
+
