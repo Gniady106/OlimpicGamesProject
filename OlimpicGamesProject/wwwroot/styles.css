@@ -1,0 +1,18 @@
+
+.main-content {
+    background-color: rgba(255, 255, 255, 0.8); /* Białe tło z przezroczystością */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-page {
+    background-image: url('images/kola.jpg'); /* Ścieżka do obrazka */
+    background-size:  auto; /* Dopasuj rozmiar obrazka */
+    background-repeat: no-repeat; /* Bez powtarzania */
+    background-position: center; /* Wyśrodkowanie obrazu */
+    min-height:80vh; /* Wysokość przynajmniej na cały ekran */
+    
+    
+    text-align: center;
+}

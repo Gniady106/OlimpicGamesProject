@@ -7,11 +7,11 @@
     int totalPages = ViewBag.TotalPages;
 }
 
-<h2>List of athletes</h2>
+<h2 class="text-center">List of athletes</h2>
 
 
-<table class="table">
-    <thead>
+<table class="table text-center">
+    <thead class="table-dark " style="font-size: 20px">
     <tr>
         <th>Full Name</th>
         <th>Gender</th>
@@ -23,45 +23,31 @@
         <th>Total Events</th>
     </tr>
     </thead>
+    <tbody >
+    
     @foreach (var athlete in Model) {
 
         <tr>
-                
-            @* </td> *@
-            @* <td> *@
-            @*     @Html.DisplayFor(modelitem => item.Weight) *@
-            @* *@
-            @* </td> *@
-            @* <td> *@
-            @*     @Html.DisplayFor(modelitem => item.Height) *@
-            @* </td> *@
-            @* <td> *@
-            @*     @Html.DisplayFor(modelitem => item.Gender) *@
-            @* </td> *@
-            @* *@
-            @* <td> *@
-            @*     @Html.DisplayFor(modelitem => item.GoldMedals) *@
-            @* </td> *@
-            @* <td> *@
-            @*     @Html.DisplayFor(modelitem => item.SilverMedals) *@
-            @* </td> *@
-            @* <td> *@
-            @*     @Html.DisplayFor(modelitem => item.BronzeMedals) *@
-            @* </td> *@
-            @* <td> *@
-            @*     @Html.DisplayFor(modelitem => item.Competitions) *@
-            @* </td> *@
+            
             <td>@athlete.FullName</td>
-            <td>@athlete.Gender</td>
+            @if (athlete.Gender == "M")
+            {
+                <td>Man</td>
+            }
+            else
+            {
+                <td>Woman</td>
+            }
             <td>@athlete.Height</td>
             <td>@athlete.Weight</td>
             <td>@athlete.GoldMedals</td>
             <td>@athlete.SilverMedals</td>
             <td>@athlete.BronzeMedals</td>
-            <td><a class="accordion-button" asp-action="Competitors">@athlete.Competitions</a></td>
+            <td><a asp-action="Competitors" asp-route-competitorId="@athlete.Id">@athlete.Competitions</a></td>
 
         </tr>
     }
+    </tbody>
     
 </table>
 
@@ -70,10 +56,10 @@
         @if (currentPage > 1)
         {
             <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+                <a class="page-link" asp-action="ListOfAthletes" asp-route-page="1">First</a>
             </li>
             <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-route-page="@(currentPage - 1)">Previous</a>
+                <a class="page-link" asp-action="ListOfAthletes" asp-route-page="@(currentPage - 1)">Previous</a>
             </li>
         }
 
@@ -86,7 +72,7 @@
             else if (i <= 3 || i > totalPages - 3 || (i >= currentPage - 1 && i <= currentPage + 1))
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                    <a class="page-link" asp-action="ListOfAthletes" asp-route-page="@i">@i</a>
                 </li>
             }
 
@@ -103,10 +89,10 @@
         @if (currentPage < totalPages)
         {
             <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-route-page="@(currentPage + 1)">Next</a>
+                <a class="page-link" asp-action="ListOfAthletes" asp-route-page="@(currentPage + 1)">Next</a>
             </li>
             <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-route-page="@totalPages">Last</a>
+                <a class="page-link" asp-action="ListOfAthletes" asp-route-page="@totalPages">Last</a>
             </li>
         }
     </ul>

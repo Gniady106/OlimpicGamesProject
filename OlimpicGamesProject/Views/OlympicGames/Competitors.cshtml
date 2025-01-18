@@ -1,8 +1,32 @@
-@model TModel
-
+@model List<OlimpicGamesProject.Models.OlympicGames.CompetitorsEventViewModel>
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<h2 class="text-center">List of participations in competitions</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Sport Name</th>
+        <th>Event Name</th>
+        <th>Olympics</th>
+        <th>Season</th>
+        <th>Age During Event</th>
+        <th>Medal</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var participation in Model)
+    {
+        <tr>
+            <td>@participation.SportName</td>
+            <td>@participation.EventName</td>
+            <td>@participation.Olympics</td>
+            <td>@participation.Season</td>
+            <td>@participation.AthleteAge</td>
+            <td>@participation.Medal</td>
+        </tr>
+    }
+    </tbody>
+</table>
