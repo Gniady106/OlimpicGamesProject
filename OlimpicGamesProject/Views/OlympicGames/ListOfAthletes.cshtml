@@ -7,12 +7,12 @@
     int totalPages = ViewBag.TotalPages;
 }
 
-<h2 class="text-center">List of athletes</h2>
+<h1 class="text-center">List of athletes</h1>
 
 
-<table class="table text-center table-bordered border-dark">
-    <thead class="table-dark " style="font-size: 20px">
-    <tr>
+<table class="table text-center align-middle table-bordered border-dark" >
+    <thead class="table-dark" style="font-size: 20px">
+    <tr style="font-size: 18px">
         <th>Full Name</th>
         <th>Gender</th>
         <th>Height</th>
@@ -27,7 +27,7 @@
     
     @foreach (var athlete in Model) {
 
-        <tr>
+        <tr style="font-size: 18px">
             
             <td>@athlete.FullName</td>
             <td>@(athlete.Gender == "M" ? "Man" : "Woman")</td>
@@ -37,14 +37,16 @@
             <td>@athlete.SilverMedals</td>
             <td>@athlete.BronzeMedals</td>
             <td><a type="button" class="btn btn-outline-dark btn-sm" asp-action="Competitors" asp-route-competitorId="@athlete.Id">@athlete.Competitions</a></td>
-
+            <td>
+                <a type="button" class="btn btn-outline-dark btn-sm" asp-action="AddToEvent">Dodaj wydarzenie</a>
+            </td>
         </tr>
     }
     </tbody>
     
 </table>
 
-<div class="pagination-container">
+<div class="pagination-container" >
     <ul class="pagination ">
         @if (currentPage > 1)
         {
@@ -96,5 +98,22 @@
             <button type="submit" class="btn btn-dark">Find</button>
         </div>
     </form>
+    
 </div>
+<style>
+    .page-link {
+        color:#212121 ;
+    }
+    .page-link:hover{
+        background-color: #212121;
+        color: white;
+    }
+    li.page-item.active .page-link{
+        background-color: #212121 !important;
+        color: white !important;
+        border-color: #212121; !important;
+
+    }
+</style>
+
 

@@ -1,0 +1,32 @@
+@model AddToEventViewModel
+
+<h2>Dodaj udział sportowca w wydarzeniu</h2>
+
+<form asp-action="AddToEvent" method="post">
+<input type="hidden" asp-for="AthleteId" />
+    
+<!-- Wybór dyscypliny -->
+<div class="form-group">
+    <label asp-for="SportId">Dyscyplina</label>
+    <select asp-for="SportId"  asp-items="Model.Sports.Select(s => new SelectListItem{ Value = s.Id.ToString(), Text =s.SportName})" class="form-control" id="SportId"></select>
+</div>
+
+<!-- Wybór wydarzenia -->
+<div class="form-group">
+    <label asp-for="EventId">Wydarzenie</label>
+    <select asp-for="EventId" asp-items="Model.Events.Select(e => new SelectListItem{ Value = e.Id.ToString(), Text = e.EventName})" class="form-control" id="EventId"></select>
+</div>
+
+<!-- Wybór olimpiady -->
+<div class="form-group">
+    <label asp-for="GamesId">Olimpiada</label>
+    <select asp-for="GamesId" asp-items="Model.Games.Select(g => new SelectListItem {Value = g.Id.ToString(), Text = g.GamesName}) " class="form-control"></select>
+</div>
+
+<!-- Wiek sportowca -->
+<div class="form-group">
+    <label asp-for="Age">Wiek</label>
+    <input asp-for="Age" class="form-control" />
+</div>
+<button type="submit" class="btn btn-primary">Dodaj</button>
+</form>
