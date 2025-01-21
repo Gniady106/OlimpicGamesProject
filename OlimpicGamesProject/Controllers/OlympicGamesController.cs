@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OlimpicGamesProject.Models.OlympicGames;
 using Microsoft.AspNetCore.Mvc;
@@ -94,6 +95,7 @@ public class OlympicGamesController : Controller
         return View(competitors);
     }
 
+    [Authorize]
     public async Task<IActionResult> AddToEvent(int athleteId)
     {
         var sports = await _context.Sports.ToListAsync();
@@ -114,39 +116,19 @@ public class OlympicGamesController : Controller
     [HttpPost]
     public async Task<IActionResult> AddToEvent(AddToEventViewModel model)
     {
-        using (var connection = _context.Database.GetDbConnection())
-        {
-            connection.Open();
-
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "SELECT IFNULL(MAX(id), 0) + 1 FROM games_competitor;";
-                var result = command.ExecuteScalar();
-
-                model.Id = Convert.ToInt32(result);
-            }
-        }
+        var maxId = await _context.GamesCompetitors.MaxAsync(g => (int?)g.Id) ?? 0;
 
         var gamescompetitor = new GamesCompetitor()
         {
-            Id = model.Id,
-            GamesId = model.GamesId != null ? model.GamesId : 3,
-            PersonId = model.AthleteId != null ? model.AthleteId : 3,
+            Id = maxId + 1,
+            GamesId = model.GamesId,
+            PersonId = model.AthleteId ,
             Age = model.Age
         };
         _context.GamesCompetitors.Add(gamescompetitor);
         await _context.SaveChangesAsync();
-    
-        // var competitorEvent = new CompetitorEvent
-        // {
-        //     CompetitorId = model.AthleteId,
-        //     EventId = model.EventId,
-        //     MedalId = 4 // Jeśli nie zdobył medalu
-        // };
-        //
-        // _context.CompetitorEvents.Add(competitorEvent);
-        // await _context.SaveChangesAsync();
-        //
+        
+        
         return RedirectToAction("AddToEvent", new { athleteId = model.AthleteId });
     }
 

@@ -1,32 +1,71 @@
 @model AddToEventViewModel
 
-<h2>Dodaj udział sportowca w wydarzeniu</h2>
 
-<form asp-action="AddToEvent" method="post">
-<input type="hidden" asp-for="AthleteId" />
+<form asp-action="AddToEvent" method="post" class="form">
+    <h2 style="margin-top: 10px; text-align: center">Add participation in competitions</h2>
+    <input type="hidden" asp-for="AthleteId" />
     
-<!-- Wybór dyscypliny -->
-<div class="form-group">
-    <label asp-for="SportId">Dyscyplina</label>
-    <select asp-for="SportId"  asp-items="Model.Sports.Select(s => new SelectListItem{ Value = s.Id.ToString(), Text =s.SportName})" class="form-control" id="SportId"></select>
-</div>
+    <!-- Wybór dyscypliny -->
+    <div class="form-group">
+        <label class="label" asp-for="SportId">Sport Name</label>
+        <select asp-for="SportId"  asp-items="Model.Sports.Select(s => new SelectListItem{ Value = s.Id.ToString(), Text =s.SportName})" class="form-control" id="SportId"></select>
+    </div>
 
-<!-- Wybór wydarzenia -->
-<div class="form-group">
-    <label asp-for="EventId">Wydarzenie</label>
-    <select asp-for="EventId" asp-items="Model.Events.Select(e => new SelectListItem{ Value = e.Id.ToString(), Text = e.EventName})" class="form-control" id="EventId"></select>
-</div>
+    <!-- Wybór wydarzenia -->
+    <div class="form-group">
+        <label class="label" asp-for="EventId">Event name</label>
+        <select asp-for="EventId" asp-items="Model.Events.Select(e => new SelectListItem{ Value = e.Id.ToString(), Text = e.EventName})" class="form-control" id="EventId"></select>
+    </div>
 
-<!-- Wybór olimpiady -->
-<div class="form-group">
-    <label asp-for="GamesId">Olimpiada</label>
-    <select asp-for="GamesId" asp-items="Model.Games.Select(g => new SelectListItem {Value = g.Id.ToString(), Text = g.GamesName}) " class="form-control"></select>
-</div>
+    <!-- Wybór olimpiady -->
+    <div class="form-group">
+        <label class="label" asp-for="GamesId">Olympics</label>
+        <select asp-for="GamesId" asp-items="Model.Games.Select(g => new SelectListItem {Value = g.Id.ToString(), Text = g.GamesName}) " class="form-control"></select>
+    </div>
 
-<!-- Wiek sportowca -->
-<div class="form-group">
-    <label asp-for="Age">Wiek</label>
-    <input asp-for="Age" class="form-control" />
-</div>
-<button type="submit" class="btn btn-primary">Dodaj</button>
+    <!-- Wiek sportowca -->
+    <div class="form-group">
+        <label class="label" asp-for="Age">Age</label>
+        <input asp-for="Age" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-dark">Add</button>
 </form>
+
+<style>
+    .btn{
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .form-group{
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    
+    .label{
+       
+        margin-bottom: 5px;
+        font-weight: normal;
+        font-size: 20px;
+    }
+
+    .form-control {
+        
+        min-width: 500px;
+        max-width: 500px; 
+    }
+    .form {
+        position: absolute; 
+        top: 10%; 
+        left: 50%; 
+        transform: translateX(-50%); 
+        border: solid 1px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px grey;
+        padding: 20px; 
+        background-color: white; 
+    }
+    
+</style>

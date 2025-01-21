@@ -1,0 +1,84 @@
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="login">
+    <h2 class="mb-4" style="font-weight: bold" >Login</h2>
+    <form asp-action="Login" method="post" class="form">
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-dark">Log in</button>
+    </form>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+    }
+</div>
+
+<style>
+    .login {
+        border: 1px solid black;
+        font-weight: bold;
+        width: 400px;
+        height: 500px;
+        color: black;
+        padding-top: 20px;
+        border-radius: 20px;
+        box-shadow: 0px 0px 20px black;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .form-control {
+        margin-left: 10px; 
+        margin-right: 10px; 
+        width: calc(100% - 20px); 
+        height: 40px;
+        border-radius: 20px;
+        border: 1px solid #ccc; 
+        color: black;
+        box-sizing: border-box; 
+    }
+
+    h2 {
+        font-weight: normal;
+        font-size: 24px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    label {
+        color: black;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 2px;
+        padding-left: 10px;
+    }
+
+    input {
+        height: 40px;
+        line-height: 20px;
+        border-radius: 20px;
+        border: none;
+        color: black;
+    }
+
+    .btn {
+        margin-left: 10px;
+    }
+    </style>
