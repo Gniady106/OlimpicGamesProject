@@ -5,30 +5,30 @@
     <h2 style="margin-top: 10px; text-align: center">Add participation in competitions</h2>
     <input type="hidden" asp-for="AthleteId" />
     
-    <!-- Wybór dyscypliny -->
+    
     <div class="form-group">
         <label class="label" asp-for="SportId">Sport Name</label>
         <select asp-for="SportId"  asp-items="Model.Sports.Select(s => new SelectListItem{ Value = s.Id.ToString(), Text =s.SportName})" class="form-control" id="SportId"></select>
     </div>
 
-    <!-- Wybór wydarzenia -->
+    
     <div class="form-group">
         <label class="label" asp-for="EventId">Event name</label>
         <select asp-for="EventId" asp-items="Model.Events.Select(e => new SelectListItem{ Value = e.Id.ToString(), Text = e.EventName})" class="form-control" id="EventId"></select>
     </div>
 
-    <!-- Wybór olimpiady -->
+   
     <div class="form-group">
         <label class="label" asp-for="GamesId">Olympics</label>
         <select asp-for="GamesId" asp-items="Model.Games.Select(g => new SelectListItem {Value = g.Id.ToString(), Text = g.GamesName}) " class="form-control" id="GamesId"></select>
     </div>
     
-    <!-- Wybór olimpiady -->
+   
     <div class="form-group">
         <label class="label" asp-for="MedalId">Olympics</label>
         <select asp-for="MedalId" asp-items="Model.Medals.Select(m => new SelectListItem {Value = m.Id.ToString(), Text = m.MedalName}) " class="form-control" id="MedalId"></select>
     </div>
-    <!-- Wiek sportowca -->
+    
     <div class="form-group">
         <label class="label" asp-for="Age">Age</label>
         <input asp-for="Age" class="form-control"/>

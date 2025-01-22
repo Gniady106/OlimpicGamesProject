@@ -18,8 +18,8 @@ public class AddToEventViewModel
     [Range(10, 110, ErrorMessage = "Age must be between 10 and 110.")]
     public int? Age { get; set; }
 
-    public List<Sport> Sports { get; set; } // Lista dyscyplin
-    public List<Event> Events { get; set; } // Lista wydarzeń
-    public List<Game> Games { get; set; }  // Lista olimpiad
-    public List<Medal> Medals { get; set; }  // Lista olimpiad
+    public List<Sport> Sports { get; set; } 
+    public List<Event> Events { get; set; } 
+    public List<Game> Games { get; set; }  
+    public List<Medal> Medals { get; set; }  
 }
