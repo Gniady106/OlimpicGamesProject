@@ -54,7 +54,7 @@ public partial class OlympicGamesDbContext : DbContext
                 .HasDefaultValueSql("NULL")
                 .HasColumnName("city_name");
         });
-
+       
         modelBuilder.Entity<CompetitorEvent>(entity =>
         {
             entity
@@ -77,6 +77,10 @@ public partial class OlympicGamesDbContext : DbContext
 
             entity.HasOne(d => d.Medal).WithMany().HasForeignKey(d => d.MedalId);
         });
+        
+        //Klucz KOMPOZYTOWY
+        modelBuilder.Entity<CompetitorEvent>()
+            .HasKey(gc => new { gc.EventId, gc.CompetitorId, gc.MedalId });
 
         modelBuilder.Entity<Event>(entity =>
         {
@@ -131,6 +135,7 @@ public partial class OlympicGamesDbContext : DbContext
             entity.HasOne(d => d.Games).WithMany().HasForeignKey(d => d.GamesId);
         });
 
+        
         modelBuilder.Entity<GamesCompetitor>(entity =>
         {
             entity.ToTable("games_competitor");

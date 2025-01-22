@@ -4,7 +4,7 @@ namespace OlimpicGamesProject.Models.OlympicGames;
 
 public class CompetitorsEventViewModel
 {
-    
+    public int AthleteId { get; set; }
     public string SportName { get; set; }
     public string EventName { get; set; }
     public string Olympics { get; set; }

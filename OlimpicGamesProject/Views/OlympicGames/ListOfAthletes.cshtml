@@ -1,7 +1,7 @@
 @model List<AthleteViewModel>
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "List";
     Layout = "_Layout";
     int currentPage = ViewBag.CurrentPage;
     int totalPages = ViewBag.TotalPages;
@@ -37,9 +37,7 @@
             <td>@athlete.SilverMedals</td>
             <td>@athlete.BronzeMedals</td>
             <td><a type="button" class="btn btn-outline-dark btn-sm" asp-action="Competitors" asp-route-competitorId="@athlete.Id">@athlete.Competitions</a></td>
-            <td>
-                <a type="button" class="btn btn-outline-dark btn-sm" asp-action="AddToEvent">Dodaj wydarzenie</a>
-            </td>
+            
         </tr>
     }
     </tbody>

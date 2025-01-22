@@ -75,6 +75,7 @@ public class OlympicGamesController : Controller
     {
         var competitors = await (
             from gamesCompetitor in _context.GamesCompetitors
+            join pearson in _context.People on gamesCompetitor.PersonId equals pearson.Id
             join games in _context.Games on gamesCompetitor.GamesId equals games.Id
             join competitorEvent in _context.CompetitorEvents on gamesCompetitor.Id equals competitorEvent.CompetitorId
             join @event in _context.Events on competitorEvent.EventId equals @event.Id
@@ -84,29 +85,32 @@ public class OlympicGamesController : Controller
             where gamesCompetitor.PersonId == competitorId
             select new CompetitorsEventViewModel()
             {
+                AthleteId = pearson.Id,
                 SportName = sport.SportName,
                 EventName = @event.EventName,
                 Olympics = games.GamesName,
-                Season = games.Season,
                 AthleteAge = gamesCompetitor.Age,
-                Medal = medalGroup != null ? medalGroup.MedalName : "None"
-            }).ToListAsync();
-
+                Medal = medalGroup != null ? medalGroup.MedalName : "NA"
+            }).ToListAsync(); 
+       
         return View(competitors);
     }
 
     [Authorize]
-    public async Task<IActionResult> AddToEvent(int athleteId)
+    public IActionResult AddToEvent(int athleteId)
     {
-        var sports = await _context.Sports.ToListAsync();
-        var events = await _context.Events.ToListAsync();
-
+        
+        
+        
+        
         var model = new AddToEventViewModel()
         {
             AthleteId = athleteId,
             Sports = _context.Sports.ToList(),
             Events = _context.Events.ToList(),
-            Games = _context.Games.ToList()
+            Games = _context.Games.ToList(),
+            Medals = _context.Medals.ToList()
+            
             
         };
 
@@ -116,20 +120,33 @@ public class OlympicGamesController : Controller
     [HttpPost]
     public async Task<IActionResult> AddToEvent(AddToEventViewModel model)
     {
+        
+
         var maxId = await _context.GamesCompetitors.MaxAsync(g => (int?)g.Id) ?? 0;
 
-        var gamescompetitor = new GamesCompetitor()
+        var gamesCompetitor = new GamesCompetitor()
         {
             Id = maxId + 1,
             GamesId = model.GamesId,
-            PersonId = model.AthleteId ,
+            PersonId = model.AthleteId,
             Age = model.Age
         };
-        _context.GamesCompetitors.Add(gamescompetitor);
+    
+        // Dodanie nowego rekordu do tabeli GamesCompetitors
+        _context.GamesCompetitors.Add(gamesCompetitor);
         await _context.SaveChangesAsync();
-        
-        
-        return RedirectToAction("AddToEvent", new { athleteId = model.AthleteId });
+
+        // Dodanie wydarzenia do tabeli CompetitorEvents
+        var competitorEvent = new CompetitorEvent
+        {
+            CompetitorId = gamesCompetitor.Id,
+            EventId = model.EventId,
+            MedalId = model.MedalId
+        };
+        _context.CompetitorEvents.Add(competitorEvent);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Competitors", new { competitorId = model.AthleteId });
     }
 
         // Jeśli coś poszło nie tak, ponownie wyświetl formularz

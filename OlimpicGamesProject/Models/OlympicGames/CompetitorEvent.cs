@@ -8,13 +8,13 @@ namespace OlimpicGamesProject.Models.OlympicGames;
 public partial class CompetitorEvent
 {
     
-    [ForeignKey("Event")]
+    [Key]
     public int? EventId { get; set; }
 
-    [ForeignKey("Competitor")]
+    [Key]
     public int? CompetitorId { get; set; }
 
-    [ForeignKey("Medal")]
+    [Key]
     public int? MedalId { get; set; }
 
     public virtual GamesCompetitor? Competitor { get; set; }

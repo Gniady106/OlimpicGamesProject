@@ -20,22 +20,30 @@
     <!-- Wybór olimpiady -->
     <div class="form-group">
         <label class="label" asp-for="GamesId">Olympics</label>
-        <select asp-for="GamesId" asp-items="Model.Games.Select(g => new SelectListItem {Value = g.Id.ToString(), Text = g.GamesName}) " class="form-control"></select>
+        <select asp-for="GamesId" asp-items="Model.Games.Select(g => new SelectListItem {Value = g.Id.ToString(), Text = g.GamesName}) " class="form-control" id="GamesId"></select>
     </div>
-
+    
+    <!-- Wybór olimpiady -->
+    <div class="form-group">
+        <label class="label" asp-for="MedalId">Olympics</label>
+        <select asp-for="MedalId" asp-items="Model.Medals.Select(m => new SelectListItem {Value = m.Id.ToString(), Text = m.MedalName}) " class="form-control" id="MedalId"></select>
+    </div>
     <!-- Wiek sportowca -->
     <div class="form-group">
         <label class="label" asp-for="Age">Age</label>
-        <input asp-for="Age" class="form-control" />
+        <input asp-for="Age" class="form-control"/>
     </div>
-    <button type="submit" class="btn btn-dark">Add</button>
+    <button type="submit" class="btn btn-success">Submit</button>
+    <button class="btn btn-danger" asp-action="ListOfAthletes">Cancel</button>
 </form>
+
 
 <style>
     .btn{
         margin-top: 10px;
         margin-left: 10px;
         margin-bottom: 10px;
+        min-width: 100px;
     }
     
     .form-group{
