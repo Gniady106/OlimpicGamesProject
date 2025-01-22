@@ -17,5 +17,5 @@ public partial class GamesCompetitor
 
     public virtual Person? Person { get; set; }
     
-    // public virtual ICollection<CompetitorEvent> CompetitorEvents { get; set; } = new List<CompetitorEvent>();
+    
 }

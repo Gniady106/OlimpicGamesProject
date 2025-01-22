@@ -1,6 +1,6 @@
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Login";
     Layout = "_Layout";
 }
 
@@ -17,7 +17,7 @@
             <input type="password" id="password" name="password" class="form-control" required />
         </div>
         <button type="submit" class="btn btn-dark" style="min-width: 100px">Log in</button>
-        <button class="btn btn-danger" style="margin-left: 2px; min-width: 100px" asp-action="ListOfAthletes" asp-controller="OlympicGames">Cancel</button>
+        <a href="@Url.Action("ListOfAthletes", "OlympicGames")" class="btn btn-danger" style="margin-left: 2px; min-width: 100px">Cancel</a>
         <div class="guest-info">
             <p><strong>You can use:</strong></p>
             <p>Email: <span class="text-primary">guest@wsei.edu.pl</span></p>

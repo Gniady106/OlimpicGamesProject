@@ -1,6 +1,9 @@
 @model AddToEventViewModel
 
-
+@{
+ViewBag.Title = "Form";
+Layout = "_Layout";
+}
 <form asp-action="AddToEvent" method="post" class="form">
     <h2 style="margin-top: 10px; text-align: center">Add participation in competitions</h2>
     <input type="hidden" asp-for="AthleteId" />
