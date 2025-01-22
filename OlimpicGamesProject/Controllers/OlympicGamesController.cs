@@ -83,7 +83,7 @@ public class OlympicGamesController : Controller
             join medal in _context.Medals on competitorEvent.MedalId equals medal.Id into medalsGroup
             from medalGroup in medalsGroup.DefaultIfEmpty()
             where gamesCompetitor.PersonId == competitorId
-            select new CompetitorsEventViewModel()
+            select new CompetitorsEventViewModel
             {
                 AthleteId = pearson.Id,
                 SportName = sport.SportName,
@@ -103,7 +103,7 @@ public class OlympicGamesController : Controller
         
         
         
-        var model = new AddToEventViewModel()
+        var model = new AddToEventViewModel
         {
             AthleteId = athleteId,
             Sports = _context.Sports.ToList(),
@@ -120,8 +120,20 @@ public class OlympicGamesController : Controller
     [HttpPost]
     public async Task<IActionResult> AddToEvent(AddToEventViewModel model)
     {
+        if (model.Age < 10 || model.Age > 110)
+        {
+            var modeld = new AddToEventViewModel
+            {
+                AthleteId = model.AthleteId,
+                Sports = _context.Sports.ToList(),
+                Events = _context.Events.ToList(),
+                Games = _context.Games.ToList(),
+                Medals = _context.Medals.ToList()
+            
+            };
+            return View(modeld);
+        }
         
-
         var maxId = await _context.GamesCompetitors.MaxAsync(g => (int?)g.Id) ?? 0;
 
         var gamesCompetitor = new GamesCompetitor()
@@ -132,11 +144,11 @@ public class OlympicGamesController : Controller
             Age = model.Age
         };
     
-        // Dodanie nowego rekordu do tabeli GamesCompetitors
+        
         _context.GamesCompetitors.Add(gamesCompetitor);
         await _context.SaveChangesAsync();
 
-        // Dodanie wydarzenia do tabeli CompetitorEvents
+        
         var competitorEvent = new CompetitorEvent
         {
             CompetitorId = gamesCompetitor.Id,
@@ -148,123 +160,4 @@ public class OlympicGamesController : Controller
 
         return RedirectToAction("Competitors", new { competitorId = model.AthleteId });
     }
-
-        // Jeśli coś poszło nie tak, ponownie wyświetl formularz
-        // model.Sports = await _context.Sports
-        //     .Select(s => new SelectListItem
-        //     {
-        //         Value = s.Id.ToString(),
-        //         Text = s.SportName
-        //     })
-        //     .ToListAsync();
-        //
-        // model.Events = await _context.Events
-        //     .Select(e => new SelectListItem
-        //     {
-        //         Value = e.Id.ToString(),
-        //         Text = e.EventName
-        //     })
-        //     .ToListAsync();
-        //
-        // model.Games = await _context.Games
-        //     .Select(g => new SelectListItem
-        //     {
-        //         Value = g.Id.ToString(),
-        //         Text = g.GamesName
-        //     })
-        //     .ToListAsync();
-        //
-        // return View(model);
-    
 }
-// [HttpGet]
-    // public async Task<IActionResult> AddToEvent(int athleteId)
-    // {
-    //     var viewModel = new CompetitorsEventViewModel()
-    //     {
-    //         AthleteId = athleteId,
-    //         Sports = await _context.Sports
-    //             .Select(s => new SelectListItem
-    //             {
-    //                 Value = s.Id.ToString(),
-    //                 Text = s.SportName
-    //             })
-    //             .ToListAsync(),
-    //
-    //         Events = await _context.Events
-    //             .Select(e => new SelectListItem
-    //             {
-    //                 Value = e.Id.ToString(),
-    //                 Text = e.EventName
-    //             })
-    //             .ToListAsync(),
-    //         Medals = await _context.Medals
-    //             .Select(m => new SelectListItem()
-    //             {
-    //                 Value = m.Id.ToString(),
-    //                 Text = m.MedalName
-    //                 
-    //             })
-    //             .ToListAsync(),
-    //
-    //         Games = await _context.Games
-    //             .Select(g => new SelectListItem
-    //             {
-    //                 Value = g.Id.ToString(),
-    //                 Text = g.GamesName
-    //             })
-    //             .ToListAsync()
-    //     };
-    //
-    //     return View(viewModel);
-    // }
-
-//     [HttpPost]
-//     public async Task<IActionResult> AddToEvent(CompetitorsEventViewModel model)
-//     {
-//         
-//         // Sprawdzenie, czy istnieje już wpis w GamesCompetitors
-         // using (var connection = _context.Database.GetDbConnection())
-         // {
-         //     connection.Open();
-         //
-         //     using (var command = connection.CreateCommand())
-         //     {
-         //         command.CommandText = "SELECT IFNULL(MAX(id), 0) + 1 FROM games_competitor;";
-         //         var result = command.ExecuteScalar();
-         //
-         //         model.Id = Convert.ToInt32(result);
-         //     }
-         // }
-//
-//         GamesCompetitor newcompetitor = new GamesCompetitor
-//         {
-//             Id = model.Id,
-//             PersonId = model.AthleteId,
-//             GamesId = model.GamesId,
-//             Age = model.AthleteAge ?? 0 // Jeśli wiek jest null, ustaw domyślną wartość 0
-//         };
-//
-//         _context.GamesCompetitors.Add(newcompetitor);
-//         await _context.SaveChangesAsync(); // Zapisanie do bazy, aby uzyskać Id nowego rekordu
-//
-// // Tworzenie nowego wpisu w CompetitorEvents
-//         CompetitorEvent newcompetitorEvent = new CompetitorEvent
-//         {
-//             EventId = model.EventId,
-//             CompetitorId = newcompetitor.Id, // Powiązanie z nowym GamesCompetitor
-//             MedalId = model.MedalId
-//         };
-//
-//         _context.CompetitorEvents.Add(newcompetitorEvent);
-//         await _context.SaveChangesAsync();
-//             
-//
-//             // Przekierowanie do listy sportowców
-//         
-//         
-//             return RedirectToAction("ListOfAthletes");
-//     }
-//
-//
-// }

@@ -21,7 +21,8 @@
             <label for="password" class="form-label">Confirm password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required />
         </div>
-        <button type="submit" class="btn btn-dark">Register</button>
+        <button type="submit" class="btn btn-dark" style="min-width: 100px">Register</button>
+        <button class="btn btn-danger" style="margin-left: 2px; min-width: 100px" asp-action="ListOfAthletes" asp-controller="OlympicGames">Cancel</button>
     </form>
 
     @if (ViewBag.Error != null)

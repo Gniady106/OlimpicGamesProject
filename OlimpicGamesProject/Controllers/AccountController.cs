@@ -7,7 +7,7 @@ namespace OlimpicGamesProject.Controllers;
 
 public class AccountController : Controller
 {
-    // GET
+    
     private class User
     {
         public string Email { get; set; }
@@ -16,7 +16,7 @@ public class AccountController : Controller
     
     private static List<User> users = new List<User>
     {
-        new User { Email = "admin@wsei.edu.pl", Password = "Admin123@" }
+        new User { Email = "guest@wsei.edu.pl", Password = "Guest123!" }
     };
     
     [HttpGet]
@@ -74,7 +74,7 @@ public class AccountController : Controller
         }
         if (!IsPasswordValid(password))
         {
-            ViewBag.Error = "The password must contain at least one uppercase letter, one special character, and one number.";
+            ViewBag.Error = "The password must have more than 5 letters and contain at least one uppercase letter, one special character, and one number.";
             return View();
         }
         users.Add(new User { Email = email, Password = password });

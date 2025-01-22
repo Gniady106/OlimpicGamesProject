@@ -16,7 +16,13 @@
             <label for="password" class="form-label">Password:</label>
             <input type="password" id="password" name="password" class="form-control" required />
         </div>
-        <button type="submit" class="btn btn-dark">Log in</button>
+        <button type="submit" class="btn btn-dark" style="min-width: 100px">Log in</button>
+        <button class="btn btn-danger" style="margin-left: 2px; min-width: 100px" asp-action="ListOfAthletes" asp-controller="OlympicGames">Cancel</button>
+        <div class="guest-info">
+            <p><strong>You can use:</strong></p>
+            <p>Email: <span class="text-primary">guest@wsei.edu.pl</span></p>
+            <p>Password: <span class="text-primary">Guest123!</span></p>
+        </div>
     </form>
 
     @if (ViewBag.Error != null)
@@ -42,6 +48,26 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+    .centered-span {
+        position: absolute; /* Pozycjonowanie względem formularza */
+        bottom: 10px; /* Ustawienie przy dolnej krawędzi */
+        left: 50%; /* Środek w osi poziomej */
+        transform: translateX(-50%); /* Wyśrodkowanie tekstu */
+        text-align: center; /* Wyrównanie tekstu */
+        font-size: 16px; /* Opcjonalnie, mniejsza czcionka */
+    }
+    .guest-info {
+        position: absolute; /* Pozycjonowanie w ramach formularza */
+        bottom: 0px; /* Odstęp od dołu formularza */
+        left: 50%; /* Wyśrodkowanie w poziomie */
+        transform: translateX(-50%); /* Korekta na szerokość elementu */
+        text-align: center; /* Wyrównanie tekstu w środku */
+        font-size: 0.9rem; /* Opcjonalnie mniejsza czcionka */
+        color: black; /* Subtelny kolor tekstu */
+    }
+    .guest-info .text-primary {
+        font-weight: bold;
     }
 
     .form-control {

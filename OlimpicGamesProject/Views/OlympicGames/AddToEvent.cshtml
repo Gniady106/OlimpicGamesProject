@@ -32,6 +32,7 @@
     <div class="form-group">
         <label class="label" asp-for="Age">Age</label>
         <input asp-for="Age" class="form-control"/>
+        <span asp-validation-for="Age" class="text-danger" style="font-weight: bold"></span>
     </div>
     <button type="submit" class="btn btn-success">Submit</button>
     <button class="btn btn-danger" asp-action="ListOfAthletes">Cancel</button>
